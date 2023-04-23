@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using ShapeAndOther;
+using ShapeDll;
 
 
 namespace ShapesAndFigures
@@ -462,8 +462,8 @@ namespace ShapesAndFigures
 
         private void сравнениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 form3 = new Form3();
-            form3.Show();
+            //Form3 form3 = new Form3();
+            //form3.Show();
         }
 
         private void цветToolStripMenuItem_Click(object sender, EventArgs e)
