@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using ShapeDll;
@@ -23,6 +24,29 @@ namespace ShapesAndFigures
             InitializeComponent();
             FigList = new List<Shape>();
             DoubleBuffered = true;
+        }
+
+        private void getPlugin()
+        {
+            Assembly myAssembly = Assembly.LoadFile("Plugins");
+            Type myType = myAssembly.GetType("MyClass");
+            myType = myAssembly.GetTypes()[0];
+            Object myInstance = Activator.CreateInstance(myType);
+            //Object myInstance2 = new MyClass();
+            Object[]  parameters = new Object[] { 125, 15 };
+            myInstance = Activator.CreateInstance(myType, parameters);
+
+            MethodInfo myMethod = myType.GetMethod("Draw");
+            MethodInfo myStaticMethod = myType.GetMethod("Method One",BindingFlags.Static | BindingFlags.Public);
+            Type[] tip = new Type[] { typeof(Int32), typeof(String) };           
+            Object[] args = new object[] { 135, "name" };
+            myStaticMethod.Invoke(myInstance, args);
+            myMethod.Invoke(myInstance, tip);
+
+            FieldInfo fix = myType.GetField("X");
+            int x = (int)fix.GetValue(myInstance);
+
+
         }
 
         private void SaveFile()
