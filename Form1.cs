@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using ShapeDll;
 
 
@@ -18,6 +19,7 @@ namespace ShapesAndFigures
         public Circle Jarvis;
         private string FileName;
         private bool isSaved = false;
+        private bool isTryas = false;
 
         public Form1()
         {
@@ -67,6 +69,10 @@ namespace ShapesAndFigures
         {
             if (FileName == null)
             {
+                if (form2 != null)
+                {
+                    form2.Close();
+                }              
                 using (SaveFileDialog dialog = new SaveFileDialog())
                 {
                     dialog.Filter = "bin files (*.bin)|*.bin|All files (*.*)|*.*";
@@ -80,6 +86,10 @@ namespace ShapesAndFigures
         }
         private void SaveFileAs()
         {
+            if (form2 != null)
+            {
+                form2.Close();
+            }
             using (SaveFileDialog dialog = new SaveFileDialog())
             {
                 dialog.Filter = "bin files (*.bin)|*.bin|All files (*.*)|*.*";
@@ -99,6 +109,10 @@ namespace ShapesAndFigures
         }
         private void LoadFile()
         {
+            if (form2 != null)
+            {
+                form2.Close();
+            }
             if (!isSaved)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
@@ -148,6 +162,10 @@ namespace ShapesAndFigures
         }
         private void NewFile()
         {
+            if (form2 != null)
+            {
+                form2.Close();
+            }
             if (!isSaved)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
@@ -539,6 +557,26 @@ namespace ShapesAndFigures
         private void новыйToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewFile();
+        }
+
+        private void динамикаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            isTryas = !isTryas;
+            while (isTryas)
+            {
+                Tryasuchka();
+            }
+        }
+
+        private void Tryasuchka()
+        {
+            Random rnd = new Random();
+            foreach (Shape i in FigList)
+            {
+               i.x0 = rnd.Next(0, 700);
+               i.y0 = rnd.Next(0, 700);
+            }
+            Refresh();  
         }
     }
 }
