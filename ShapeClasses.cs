@@ -28,11 +28,6 @@ namespace ShapeDll
             this.isMoving = false;
             this.lineDrawn = false;
         }
-        public Shape()
-        {
-            x = 100;
-            y = 100;
-        }
         public int x0
         {
             get
